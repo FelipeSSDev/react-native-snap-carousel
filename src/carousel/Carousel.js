@@ -149,6 +149,8 @@ export default class Carousel extends Component {
 
         this._setScrollHandler(props);
 
+        this._gradientColors = props.gradientColors;
+
         // This bool aims at fixing an iOS bug due to scrollTo that triggers onMomentumScrollEnd.
         // onMomentumScrollEnd fires this._snapScroll, thus creating an infinite loop.
         this._ignoreNextMomentum = false;
@@ -1361,7 +1363,7 @@ export default class Carousel extends Component {
 
         return this._needsScrollView() ? (
             <ScrollViewComponent {...props}>
-                <LinearGradient colors={props.gradientColors}>
+                <LinearGradient colors={this._gradientColors}>
                 {
                     this._getCustomData().map((item, index) => {
                         return this._renderItem({ item, index });
