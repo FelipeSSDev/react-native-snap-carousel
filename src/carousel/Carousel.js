@@ -11,6 +11,7 @@ import {
     stackAnimatedStyles,
     tinderAnimatedStyles
 } from '../utils/animations';
+import LinearGradient from 'react-native-linear-gradient';
 
 const IS_IOS = Platform.OS === 'ios';
 
@@ -48,6 +49,7 @@ export default class Carousel extends Component {
         enableMomentum: PropTypes.bool,
         enableSnap: PropTypes.bool,
         firstItem: PropTypes.number,
+        gradientColors: PropTypes.arrayOf(PropTypes.string),
         hasParallaxImages: PropTypes.bool,
         inactiveSlideOpacity: PropTypes.number,
         inactiveSlideScale: PropTypes.number,
@@ -85,6 +87,7 @@ export default class Carousel extends Component {
         enableMomentum: false,
         enableSnap: true,
         firstItem: 0,
+        gradientColors: ['#0000'],
         hasParallaxImages: false,
         inactiveSlideOpacity: 0.7,
         inactiveSlideScale: 0.9,
@@ -1358,11 +1361,13 @@ export default class Carousel extends Component {
 
         return this._needsScrollView() ? (
             <ScrollViewComponent {...props}>
+                <LinearGradient colors={props.gradientColors}>
                 {
                     this._getCustomData().map((item, index) => {
                         return this._renderItem({ item, index });
                     })
                 }
+                </LinearGradient>
             </ScrollViewComponent>
         ) : (
             <AnimatedFlatList {...props} />
