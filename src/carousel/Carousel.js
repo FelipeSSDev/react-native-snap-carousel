@@ -1363,13 +1363,11 @@ export default class Carousel extends Component {
 
         return this._needsScrollView() ? (
             <ScrollViewComponent {...props}>
-                <LinearGradient colors={this._gradientColors} style={{flex: 1}}>
                 {
                     this._getCustomData().map((item, index) => {
                         return this._renderItem({ item, index });
                     })
                 }
-                </LinearGradient>
             </ScrollViewComponent>
         ) : (
             <LinearGradient colors={this._gradientColors} style={{flex: 1, zIndex: 1}}>
