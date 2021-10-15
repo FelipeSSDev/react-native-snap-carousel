@@ -12,6 +12,7 @@ import {
     tinderAnimatedStyles
 } from '../utils/animations';
 import LinearGradient from 'react-native-linear-gradient';
+import MaskedView from '@react-native-community/masked-view';
 
 const IS_IOS = Platform.OS === 'ios';
 
@@ -1359,20 +1360,28 @@ export default class Carousel extends Component {
             ...this._getComponentStaticProps()
         };
 
+        const LinearGradientView = (props) => (
+        <View style={{ backgroundColor: 'transparent', flex: 1, }}>
+            <LinearGradient colors={this._gradientColors} style={{flex: 1, width: '100%', borderRadius: 5}}>
+            </LinearGradient>
+        </View>)
+
         const ScrollViewComponent = typeof useScrollView === 'function' ? useScrollView : AnimatedScrollView
 
         return this._needsScrollView() ? (
             <ScrollViewComponent {...props}>
+                <LinearGradient colors={this._gradientColors} style={{flex: 1}}>
                 {
                     this._getCustomData().map((item, index) => {
                         return this._renderItem({ item, index });
                     })
                 }
+                </LinearGradient>
             </ScrollViewComponent>
         ) : (
-            <LinearGradient colors={this._gradientColors} style={{flex: 1, zIndex: 1}}>
+            <MaskedView element={<LinearGradientView />}>
                 <AnimatedFlatList {...props} />
-            </LinearGradient>
+            </MaskedView>
         );
     }
 }
