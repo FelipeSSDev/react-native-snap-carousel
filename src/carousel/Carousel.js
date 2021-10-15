@@ -1379,7 +1379,7 @@ export default class Carousel extends Component {
                 </LinearGradient>
             </ScrollViewComponent>
         ) : (
-            <MaskedView element={<LinearGradientView />}>
+            <MaskedView style={{flex: 1}} maskElement={<LinearGradientView />}>
                 <AnimatedFlatList {...props} />
             </MaskedView>
         );
