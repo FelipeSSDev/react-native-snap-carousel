@@ -87,7 +87,7 @@ export default class Carousel extends Component {
         enableMomentum: false,
         enableSnap: true,
         firstItem: 0,
-        gradientColors: ['#0000'],
+        gradientColors: ['#0000', '#0000'],
         hasParallaxImages: false,
         inactiveSlideOpacity: 0.7,
         inactiveSlideScale: 0.9,
@@ -1362,19 +1362,19 @@ export default class Carousel extends Component {
         const ScrollViewComponent = typeof useScrollView === 'function' ? useScrollView : AnimatedScrollView
 
         return this._needsScrollView() ? (
-            <LinearGradient colors={['#00EF80', '#0000', '#0000', '#0000', '#00EF80']}>
-                <ScrollViewComponent {...props}>
-                    
-                    {
-                        this._getCustomData().map((item, index) => {
-                            return this._renderItem({ item, index });
-                        })
-                    }
-                    
-                </ScrollViewComponent>
-            </LinearGradient>
+            <ScrollViewComponent {...props}>
+                <LinearGradient colors={this._gradientColors} style={{flex: 1}}>
+                {
+                    this._getCustomData().map((item, index) => {
+                        return this._renderItem({ item, index });
+                    })
+                }
+                </LinearGradient>
+            </ScrollViewComponent>
         ) : (
-            <AnimatedFlatList {...props} />
+            <LinearGradient colors={this._gradientColors} style={{flex: 1, zIndex: 1}}>
+                <AnimatedFlatList {...props} />
+            </LinearGradient>
         );
     }
 }
